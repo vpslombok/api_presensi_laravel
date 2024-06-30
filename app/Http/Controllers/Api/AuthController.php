@@ -168,11 +168,10 @@ class AuthController extends Controller
 
         if (!$user) {
             return response()->json([
-                'message' => 'Nik tidak ditemukan'
+                'message' => 'NIK tidak ditemukan'
             ], 404);
         }
 
-        // Hapus token sebelumnya jika ada
         Password_resets::where('email', $user->email)->delete();
 
         $token = Str::random(60);
@@ -184,16 +183,17 @@ class AuthController extends Controller
 
         $to = $user->email;
         $subject = 'Reset Password';
-        $resetMessage = 'Klik link ini untuk reset password: ' . url('/reset-password/' . $token);
+        $link = url('/reset-password/' . $token);
+        $body = "Klik link ini untuk mereset password: <a href='$link'>$link</a>";
 
-        Mail::send([], [], function ($m) use ($to, $subject, $resetMessage) {
-            $m->to($to)
+        Mail::send([], [], function ($message) use ($to, $subject, $body) {
+            $message->to($to)
                 ->subject($subject)
-                ->setBody($resetMessage, 'text/html');
+                ->html($body);
         });
 
         return response()->json([
-            'message' => 'Silahkan cek email anda untuk reset password'
+            'message' => 'Silahkan cek email Anda untuk mereset password',
         ], 200);
     }
 }
