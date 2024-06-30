@@ -38,7 +38,6 @@ class ResetPasswordController extends Controller
         }
 
         $user = User::where('email', $reset->email)->first();
-
         if (!$user) {
             return back()->withErrors(['email' => 'Email tidak ditemukan.']);
         }
