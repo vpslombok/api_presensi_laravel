@@ -2,4 +2,4 @@
 deployment:
   tasks:
     - export DEPLOYPATH=/home/xayjyaqu/api-pos-file/
-    - rsync -av --exclude='public/' ./ $DEPLOYPATH
+    - cp -r * $DEPLOYPATH
