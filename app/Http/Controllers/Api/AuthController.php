@@ -184,7 +184,7 @@ class AuthController extends Controller
         $to = $user->email;
         $subject = 'Reset Password';
         $link = url('/reset-password/' . $token);
-        $body = "Klik link ini untuk mereset password: <a href='$link'>$link</a>";
+        $body = "Klik tombol ini untuk mereset password: <a href='$link' style='background-color: #007bff; color: white; padding: 10px 20px; text-decoration: none; border-radius: 20px;'>Reset Password</a>";
 
         Mail::send([], [], function ($message) use ($to, $subject, $body) {
             $message->to($to)
